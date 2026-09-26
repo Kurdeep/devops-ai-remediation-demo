@@ -67,10 +67,10 @@ pipeline {
                 string(credentialsId: 'openai-api-key', variable: 'OPENAI_API_KEY'),
                 string(credentialsId: 'jenkins-api-auth', variable: 'JENKINS_AUTH')
             ]) {
-                sh '''
-                    curl -s -u "$JENKINS_AUTH" "${BUILD_URL}consoleText" -o /tmp/failed_build_log.txt
-                    python3 /var/jenkins_home/orchestrator.py /tmp/failed_build_log.txt
-                '''
+            sh '''
+              curl -s -u "$JENKINS_AUTH" "${BUILD_URL}consoleText" -o /tmp/failed_build_log.txt
+              WORKSPACE_PATH="${WORKSPACE}" python3 /var/jenkins_home/orchestrator.py /tmp/failed_build_log.txt
+            '''
             }
         }
     }
