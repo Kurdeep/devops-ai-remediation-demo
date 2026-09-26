@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/Kurdeep/devops-ai-remediation-demo.git', credentialsId: 'github-creds'
+                git branch: 'master', url: 'https://github.com/Kurdeep/devops-ai-remediation-demo.git', credentialsId: 'github-creds'
             }
         }
 
