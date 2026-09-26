@@ -63,7 +63,12 @@ pipeline {
 
     post {
         failure {
-            echo "Pipeline failed — this is where our AI remediation hook goes (Step 5+)"
+            withCredentials([string(credentialsId: 'openai-api-key', variable: 'OPENAI_API_KEY')]) {
+                sh '''
+                    curl -s "${BUILD_URL}consoleText" -o /tmp/failed_build_log.txt
+                    python3 /var/jenkins_home/orchestrator.py /tmp/failed_build_log.txt
+                '''
+            }
         }
     }
 }
